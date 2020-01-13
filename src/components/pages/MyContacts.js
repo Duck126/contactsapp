@@ -17,10 +17,15 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 
+import dummyData from '../dummyData/dummyData.json';
+
+
 
 const useStyles = makeStyles(theme => ({
   card: {
     maxWidth: 345,
+    float: "left",
+    margin: '.5%'
   },
   media: {
     height: 0,
@@ -58,84 +63,95 @@ export default function MyContacts() {
   }
 
   return (
-    <Card className={classes.card}>
 
-{/* Card Front */}
-      <CardHeader
+    <div>
 
-        //Burger Menu = issue: burger menu doesnt close unless hit Esc button.
-        action={
-          <IconButton aria-label="settings" onClick={handleClick}>
-            {/* <MoreVertIcon /> */}
-            <MoreVertIcon />
 
-            <Menu
-              id="simple-menu"
-              anchorEl={anchorEl}
-              keepMounted
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-            >
+{/* replace dummyData with new data */}
+      {dummyData.map((userDetail, index)=> {
 
-              <MenuItem onClick={handleClose}>Copy</MenuItem>
-              <MenuItem onClick={handleClose}>Edit</MenuItem>
-              <MenuItem onClick={handleClose}>Delete</MenuItem>
-            </Menu>
 
-          </IconButton>
+ {/* Card Front */}
+        return <Card className={classes.card}>
+ 
+        <CardHeader
+
+          //Burger Menu = issue: burger menu doesnt close unless hit Esc button.
+          action={
+            <IconButton aria-label="settings" onClick={handleClick}>
+              {/* <MoreVertIcon /> */}
+              <MoreVertIcon />
+
+              <Menu
+                id="simple-menu"
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+
+                <MenuItem onClick={handleClose}>Copy</MenuItem>
+                <MenuItem onClick={handleClose}>Edit</MenuItem>
+                <MenuItem onClick={handleClose}>Delete</MenuItem>
+              </Menu>
+
+            </IconButton>
+            
+          }
           
-        }
-        
-        title="NAME HERE"
-        subheader="PHONE NUMBER"
-      />
-      <CardMedia
-        className={classes.media}
-        image="IMG URL"
-        title="IMG DESCRIPTION"
-      />
-      <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
-          PLACE OF WORK
-        </Typography>
-      </CardContent>
-
-{/* Card Actions */}
-      <CardActions disableSpacing>
-
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
-
-        <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded,
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </IconButton>
-
-      </CardActions>
-
-{/* This is the beginning of the dropdown */}
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
+          title={userDetail.name}
+          subheader={userDetail.phoneNumber}
+        />
+        <CardMedia
+          className={classes.media}
+          image={userDetail.imgURL}
+          title="Photo "
+        />
         <CardContent>
-          <Typography paragraph>Description:</Typography>
-          <Typography paragraph>
-            INDIVIDUALS DESCRIPTION HERE 
+          <Typography variant="body2" color="textSecondary" component="p">
+            {userDetail.work}
           </Typography>
-          
         </CardContent>
-      </Collapse>
+
+  {/* Card Actions */}
+        <CardActions disableSpacing>
+
+          <IconButton aria-label="add to favorites">
+            <FavoriteIcon />
+          </IconButton>
+
+          <IconButton aria-label="share">
+            <ShareIcon />
+          </IconButton>
+
+          <IconButton
+            className={clsx(classes.expand, {
+              [classes.expandOpen]: expanded,
+            })}
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
+            aria-label="show more"
+          >
+            <ExpandMoreIcon />
+          </IconButton>
+
+        </CardActions>
+
+  {/* This is the beginning of the dropdown */}
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+          <CardContent>
+            <Typography paragraph>Description:</Typography>
+            <Typography paragraph>
+              {userDetail.Description}
+            </Typography>
+            
+          </CardContent>
+        </Collapse>
 
 
-    </Card>
+      </Card>
+
+      })}
+    </div>
   );
 }
