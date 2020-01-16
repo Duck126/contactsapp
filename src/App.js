@@ -14,9 +14,9 @@ function App() {
     <Router>
       <div className="App">
         <NavBar/>
-          <Route exact path="/" component={Home} />
+          {/* <Route exact path="/" component={Home} />
           <Route exact path="Contacts" component={MyContacts} />
-          <Route exact path="Create Contact" component={Create} />
+          <Route exact path="Create Contact" component={Create} /> */}
 
         <NavTabs/>
       </div>

@@ -23,9 +23,13 @@ import dummyData from '../dummyData/dummyData.json';
 
 const useStyles = makeStyles(theme => ({
   card: {
-    maxWidth: 345,
+    width: '15%',
+    height: '15%',
+    minWidth: 100,
+    minHeight: 100,
     float: "left",
-    margin: '.5%'
+    margin: '.5%',
+    alignItems: 'center'
   },
   media: {
     height: 0,
@@ -64,7 +68,7 @@ export default function MyContacts() {
 
   return (
 
-    <div>
+    <div className="contianer" >
 
 
 {/* replace dummyData with new data */}
