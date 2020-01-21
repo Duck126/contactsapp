@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
@@ -16,6 +16,11 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
+import firebase from 'firebase';
+import 'firebase/database';
+
+
+import { DB_CONFIG } from '../../data/config.js';
 
 import dummyData from '../dummyData/dummyData.json';
 
@@ -48,12 +53,25 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-export default function MyContacts() {
+
+
+class MyContacts extends Component {
+  constructor(props){
+    super(props);
+
+    this.app = firebase.initializeApp(DB_CONFIG);
+    this.database = this.app.database().ref().child('contactsapp-60669');
+
+    console.log(this.database);
+  
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const [ anchorEl, setAnchorEl ] = React.useState(null);
 
-
+  // componentWillMount(){
+  //   this.dummData = base.syncState('contactsapp-60669')
+  // };
+ 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -65,10 +83,11 @@ export default function MyContacts() {
   const handleClose = () => {
     setAnchorEl(null);
   }
-
+console.log(DB_CONFIG);
+  
   return (
 
-    <div className="contianer" >
+    <div className="container" >
 
 
 {/* replace dummyData with new data */}
@@ -158,4 +177,6 @@ export default function MyContacts() {
       })}
     </div>
   );
+  }
 }
+export default MyContacts;
